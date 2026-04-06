@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>अध्याय 9: अंतरराष्ट्रीय व्यापार - Q&A Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #064e3b;
+            --primary-light: #059669;
+            --secondary: #d97706;
+            --text-dark: #1f2937;
+            --bg-body: #f0fdf4;
+            --card-bg: #ffffff;
+            --gradient: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.7;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--gradient);
+            padding: 80px 40px;
+            border-radius: 40px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            margin-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.1;
+        }
+
+        header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 2.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge-meta {
+            display: inline-block;
+            background: var(--secondary);
+            color: #fffbeb;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* MCQ Grid Layout */
+        .mcq-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .mcq-card {
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-top: 6px solid #d97706;
+            transition: transform 0.2s;
+        }
+
+        .mcq-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .mcq-q-num {
+            color: #b45309;
+            font-family: 'Outfit';
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: #fef3c7;
+            padding: 5px 15px;
+            border-radius: 10px;
+        }
+
+        .mcq-question {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #1f2937;
+            line-height: 1.4;
+        }
+
+        .mcq-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .mcq-opt {
+            background: #f8fafc;
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .mcq-correct {
+            background: #ecfdf5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 1px dashed #10b981;
+        }
+
+        /* Subjective QA Styles */
+        .qa-card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-container {
+            align-self: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(6, 78, 59, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .qa-card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .answer-block {
+            background: #f8fafc;
+            padding: 35px;
+            border-radius: 20px;
+            border-left: 8px solid var(--secondary);
+            font-size: 1.8rem;
+            color: #334155;
+        }
+
+        @media (max-width: 1024px) {
+            header h1 { font-size: 3.5rem; }
+            .qa-card { padding: 30px; }
+            .mcq-grid { grid-template-columns: 1fr; }
+            .mcq-options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>अध्याय 9: अंतरराष्ट्रीय व्यापार</h1>
+            <p>International Trade - Master Q&A Portal</p>
+            <div class="badge-meta">Emerald Earth Master Edition • Class 12</div>
+        </header>
+
+        <!-- SECTION 0: MCQs -->
+        <div style="background: #ffffff; border-left: 15px solid #d97706; padding: 35px 50px; border-radius: 25px; margin-bottom: 50px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <h2 style="font-family: 'Outfit', sans-serif; color: #b45309; font-size: 3rem; margin: 0; font-weight: 800;">खण्ड 0: बहुविकल्पीय प्रश्न (MCQs)</h2>
+            <p style="font-size: 1.8rem; color: #4b5563; margin-top: 10px; font-weight: 500;">बोर्ड परीक्षा आधारित 20 अति-महत्वपूर्ण प्रश्न</p>
+        </div>
+
+        <div class="mcq-grid">
+            <!-- 1 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.1</div>
+                <div class="mcq-question">जब दो से अधिक देशों के बीच वस्तुओं और सेवाओं का विनिमय होता है, तो उसे क्या कहते हैं?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) राष्ट्रीय व्यापार</div>
+                    <div class="mcq-opt">(B) द्विपक्षीय व्यापार</div>
+                    <div class="mcq-opt">(C) बहुपक्षीय व्यापार</div>
+                    <div class="mcq-opt">(D) स्थानीय व्यापार</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) बहुपक्षीय व्यापार</div>
+            </div>
+            <!-- 2 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.2</div>
+                <div class="mcq-question">प्राचीन समय का प्रसिद्ध 'रेशम मार्ग' (Silk Route) किन दो क्षेत्रों को आपस में जोड़ता था?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) चीन और रोम</div>
+                    <div class="mcq-opt">(B) भारत और अफ्रीका</div>
+                    <div class="mcq-opt">(C) यूरोप और अमेरिका</div>
+                    <div class="mcq-opt">(D) चीन और ऑस्ट्रेलिया</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (A) चीन और रोम</div>
+            </div>
+            <!-- 3 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.3</div>
+                <div class="mcq-question">वर्तमान समय में विश्व व्यापार का केंद्र किस महाद्वीप की ओर झुकता हुआ दिखाई दे रहा है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) उत्तरी अमेरिका</div>
+                    <div class="mcq-opt">(B) यूरोप</div>
+                    <div class="mcq-opt">(C) अफ्रीका</div>
+                    <div class="mcq-opt">(D) एशिया</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (D) एशिया</div>
+            </div>
+            <!-- 4 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.4</div>
+                <div class="mcq-question">विश्व व्यापार संगठन (WTO) का मुख्यालय कहाँ स्थित है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) वॉशिंगटन डी.सी. (USA)</div>
+                    <div class="mcq-opt">(B) जेनेवा (स्विट्ज़रलैंड)</div>
+                    <div class="mcq-opt">(C) पेरिस (फ्रांस)</div>
+                    <div class="mcq-opt">(D) लंदन (UK)</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) जेनेवा (स्विट्ज़रलैंड)</div>
+            </div>
+            <!-- 5 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.5</div>
+                <div class="mcq-question">1 जनवरी 1995 को GATT (गैट) को समाप्त करके किस संगठन की स्थापना की गई?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) विश्व बैंक</div>
+                    <div class="mcq-opt">(B) अंतर्राष्ट्रीय मुद्रा कोष (IMF)</div>
+                    <div class="mcq-opt">(C) विश्व व्यापार संगठन (WTO)</div>
+                    <div class="mcq-opt">(D) सार्क (SAARC)</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) विश्व व्यापार संगठन (WTO)</div>
+            </div>
+            <!-- 6 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.6</div>
+                <div class="mcq-question">जब किसी देश का निर्यात (Export) उसके आयात (Import) से अधिक होता है, तो इसे व्यापार संतुलन में क्या कहा जाता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) प्रतिकूल (Deficit) संतुलन</div>
+                    <div class="mcq-opt">(B) शून्य संतुलन</div>
+                    <div class="mcq-opt">(C) बराबर संतुलन</div>
+                    <div class="mcq-opt">(D) अनुकूल (Surplus) संतुलन</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (D) अनुकूल (Surplus) संतुलन</div>
+            </div>
+            <!-- 7 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.7</div>
+                <div class="mcq-question">यूरोपीय संघ (EU) के सदस्य देशों द्वारा अपनाई गई साझा मुद्रा (Common Currency) का क्या नाम है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) डॉलर</div>
+                    <div class="mcq-opt">(B) पौंड</div>
+                    <div class="mcq-opt">(C) यूरो</div>
+                    <div class="mcq-opt">(D) रूबल</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) यूरो</div>
+            </div>
+            <!-- 8 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.8</div>
+                <div class="mcq-question">ओपेक (OPEC) संगठन का संबंध मुख्य रूप से वैश्विक स्तर पर किस वस्तु के व्यापार से है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) सोना और चांदी</div>
+                    <div class="mcq-opt">(B) पेट्रोलियम (कच्चा तेल)</div>
+                    <div class="mcq-opt">(C) कृषि उत्पाद</div>
+                    <div class="mcq-opt">(D) सूचना प्रौद्योगिकी (IT)</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) पेट्रोलियम (कच्चा तेल)</div>
+            </div>
+            <!-- 9 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.9</div>
+                <div class="mcq-question">जब कोई देश अपने माल को अन्य देशों में अपनी उत्पादन लागत (Cost price) से भी कम कीमत पर बेचता है, तो इसे क्या कहते हैं?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) डम्पिंग (Dumping)</div>
+                    <div class="mcq-opt">(B) टैरिफ (Tariff)</div>
+                    <div class="mcq-opt">(C) सब्सिडी (Subsidy)</div>
+                    <div class="mcq-opt">(D) कोटा (Quota)</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (A) डम्पिंग (Dumping)</div>
+            </div>
+            <!-- 10 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.10</div>
+                <div class="mcq-question">आसियान (ASEAN) किस क्षेत्र के देशों का व्यापारिक सहयोग समूह है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) उत्तर अमेरिकी देशों का</div>
+                    <div class="mcq-opt">(B) यूरोपीय देशों का</div>
+                    <div class="mcq-opt">(C) दक्षिण-पूर्वी एशियाई राष्ट्रों का</div>
+                    <div class="mcq-opt">(D) अफ्रीकी देशों का</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) दक्षिण-पूर्वी एशियाई राष्ट्रों का</div>
+            </div>
+            <!-- 11 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.11</div>
+                <div class="mcq-question">समुद्र तट से दूर नदी या नहर के किनारे स्थित पत्तन को क्या कहा जाता है? (जैसे- भारत में कोलकाता पत्तन)</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) नौसेना पत्तन</div>
+                    <div class="mcq-opt">(B) बाह्य पत्तन</div>
+                    <div class="mcq-opt">(C) अंतर्देशीय पत्तन</div>
+                    <div class="mcq-opt">(D) आंत्रपो पत्तन</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) अंतर्देशीय पत्तन</div>
+            </div>
+            <!-- 12 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.12</div>
+                <div class="mcq-question">सिंगापुर और कोपेनहेगन किस प्रकार के पत्तन के प्रमुख उदाहरण हैं, जहाँ से माल अन्य देशों को पुन: निर्यात किया जाता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) आंत्रपो (Entrepot) पत्तन</div>
+                    <div class="mcq-opt">(B) पैकेट स्टेशन</div>
+                    <div class="mcq-opt">(C) तेल पत्तन</div>
+                    <div class="mcq-opt">(D) बाह्य पत्तन</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (A) आंत्रपो (Entrepot) पत्तन</div>
+            </div>
+            <!-- 13 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.13</div>
+                <div class="mcq-question">अंतरराष्ट्रीय व्यापार के दृष्टिकोण से पत्तनों (Ports) को क्या कहा जाता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) व्यापार की बाधाएँ</div>
+                    <div class="mcq-opt">(B) व्यापार के प्रवेश द्वार (Gateways)</div>
+                    <div class="mcq-opt">(C) विदेशी मुद्रा केंद्र</div>
+                    <div class="mcq-opt">(D) डम्पिंग क्षेत्र</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) व्यापार के प्रवेश द्वार</div>
+            </div>
+            <!-- 14 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.14</div>
+                <div class="mcq-question">किन्हीं दो देशों की सरकारों के बीच विशेष समझौते के तहत होने वाले व्यापार को क्या कहते हैं?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) खुला व्यापार</div>
+                    <div class="mcq-opt">(B) द्विपक्षीय (Bilateral) व्यापार</div>
+                    <div class="mcq-opt">(C) बहुपक्षीय व्यापार</div>
+                    <div class="mcq-opt">(D) क्षेत्रीय व्यापार</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) द्विपक्षीय व्यापार</div>
+            </div>
+            <!-- 15 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.15</div>
+                <div class="mcq-question">वर्तमान में वैश्विक व्यापार में सबसे तेज़ी से बढ़ने वाला क्षेत्र (जिसे 'अदृश्य व्यापार' भी कहते हैं) कौन-सा है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) कृषि उत्पाद</div>
+                    <div class="mcq-opt">(B) खनिज और अयस्क</div>
+                    <div class="mcq-opt">(C) सेवा क्षेत्र (सॉफ्टवेयर, पर्यटन)</div>
+                    <div class="mcq-opt">(D) निर्माण उद्योग</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) सेवा क्षेत्र</div>
+            </div>
+            <!-- 16 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.16</div>
+                <div class="mcq-question">भारत का अधिकांश भारी और स्थूल विदेशी व्यापार किस मार्ग द्वारा संपन्न होता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) वायु मार्ग</div>
+                    <div class="mcq-opt">(B) सड़क मार्ग</div>
+                    <div class="mcq-opt">(C) रेल मार्ग</div>
+                    <div class="mcq-opt">(D) समुद्री मार्ग</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (D) समुद्री मार्ग</div>
+            </div>
+            <!-- 17 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.17</div>
+                <div class="mcq-question">दक्षिण एशियाई देशों के बीच आपसी व्यापारिक टैरिफ को कम करने के लिए बनाए गए 'साफटा' (SAFTA) का संबंध किस समूह से है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) आसियान (ASEAN)</div>
+                    <div class="mcq-opt">(B) सार्क (SAARC)</div>
+                    <div class="mcq-opt">(C) नाफ्टा (NAFTA)</div>
+                    <div class="mcq-opt">(D) यूरोपीय संघ (EU)</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) सार्क (SAARC)</div>
+            </div>
+            <!-- 18 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.18</div>
+                <div class="mcq-question">वस्तुओं और सेवाओं के अंतरराष्ट्रीय विनिमय के कुल मूल्य को क्या कहा जाता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) व्यापार की दिशा</div>
+                    <div class="mcq-opt">(B) व्यापार की संरचना</div>
+                    <div class="mcq-opt">(C) व्यापार का परिमाण (Volume)</div>
+                    <div class="mcq-opt">(D) व्यापार का संतुलन</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) व्यापार का परिमाण (Volume)</div>
+            </div>
+            <!-- 19 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.19</div>
+                <div class="mcq-question">होनोलूलू और अदन (Aden) किस प्रकार के पत्तन के उदाहरण हैं जहाँ जहाज़ ईंधन भरने के लिए रुकते हैं?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) पैकेट स्टेशन</div>
+                    <div class="mcq-opt">(B) आंत्रपो पत्तन</div>
+                    <div class="mcq-opt">(C) मार्ग पत्तन (Ports of Call)</div>
+                    <div class="mcq-opt">(D) अंतर्देशीय पत्तन</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) मार्ग पत्तन (Ports of Call)</div>
+            </div>
+            <!-- 20 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.20</div>
+                <div class="mcq-question">उच्च विकसित देश अपने विदेशी व्यापार में मुख्य रूप से किस चीज़ का निर्यात करते हैं?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) कच्चा माल</div>
+                    <div class="mcq-opt">(B) कृषि उत्पाद</div>
+                    <div class="mcq-opt">(C) मशीनरी, उपकरण और विनिर्मित वस्तुएँ</div>
+                    <div class="mcq-opt">(D) सस्ते श्रमिक</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) मशीनरी, उपकरण और विनिर्मित वस्तुएँ</div>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- SECTION 1 HEADER -->
+        <div style="background: #ffffff; border-left: 15px solid #059669; padding: 35px 50px; border-radius: 25px; margin-top: 80px; margin-bottom: 60px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <h2 style="font-family: 'Outfit', sans-serif; color: #064e3b; font-size: 3rem; margin: 0; font-weight: 800;">खण्ड 1: व्यापार का आधार और इतिहास (प्रश्न 1-10)</h2>
+            <p style="font-size: 1.8rem; color: #4b5563; margin-top: 10px; font-weight: 500;">अंतरराष्ट्रीय व्यापार की परिभाषा, ऐतिहासिक 'रेशम मार्ग', और व्यापार की संरचना एवं परिमाण।</p>
+        </div>
+
+        <!-- QUESTION 1 -->
+        <div class="qa-card" id="q1">
+            <div class="badge-container">
+                <div class="badge">Q1</div>
+            </div>
+            <h2>'अंतरराष्ट्रीय व्यापार' (International Trade) से क्या आशय है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> स्वैच्छिक रूप से वस्तुओं (Goods) और सेवाओं (Services) के विनिमय (Exchange) को व्यापार कहा जाता है।</p>
+                <div style="background: #f0fdf4; padding: 25px; border-radius: 20px; border-left: 8px solid #059669; margin-top: 15px;">
+                    जब यही विनिमय राष्ट्र की सीमाओं के पार <strong>दो या दो से अधिक देशों के बीच</strong> होता है, तो इसे 'अंतरराष्ट्रीय व्यापार' कहते हैं। यह किसी भी देश की अर्थव्यवस्था का <strong>इंजन</strong> माना जाता है।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div class="qa-card" id="q2">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>द्विपक्षीय (Bilateral) और बहुपक्षीय (Multilateral) व्यापार में क्या अंतर है?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px; list-style-type: square;">
+                    <li style="margin-bottom: 15px;"><strong style="color: #064e3b;">द्विपक्षीय व्यापार:</strong> यह केवल <strong>दो देशों</strong> के बीच होता है। यह अक्सर सरकारों के बीच एक विशेष समझौते के तहत होता है (जैसे भारत द्वारा रूस से तेल खरीदना)।</li>
+                    <li><strong style="color: #064e3b;">बहुपक्षीय व्यापार:</strong> जब एक देश <strong>अनेक व्यापरिक देशों</strong> के साथ वस्तुओं का आयात-निर्यात करता है, तो उसे बहुपक्षीय व्यापार कहते हैं। इसमें देशों का एक बड़ा जाल शामिल होता है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 3 -->
+        <div class="qa-card" id="q3">
+            <div class="badge-container">
+                <div class="badge">Q3</div>
+            </div>
+            <h2>प्राचीन 'रेशम मार्ग' (Silk Route) का व्यापारिक इतिहास में क्या महत्व है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> 'रेशम मार्ग' 6,000 किलोमीटर लंबा एक ऐतिहासिक और प्रसिद्ध व्यापारिक मार्ग था, जो <strong>चीन को रोम साम्राज्य (यूरोप)</strong> से जोड़ता था।</p>
+                <p style="margin-top: 15px;"><strong>महत्व:</strong> इसी मार्ग से प्राचीन काल में चीनी रेशम, भारतीय मसाले, बहुमूल्य रत्न और रोम के आभूषणों का <strong>लंबी दूरी का व्यापार</strong> होता था। इसने पूर्व और पश्चिम की सभ्यताओं को जोड़ा।</p>
+            </div>
+        </div>
+
+        <!-- QUESTION 4 -->
+        <div class="qa-card" id="q4">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>अंतरराष्ट्रीय व्यापार के किन्हीं तीन मुख्य आधारों (Basis of Trade) का वर्णन करें।</h2>
+            <div class="answer-block">
+                <p>अंतरराष्ट्रीय व्यापार इसलिए होता है क्योंकि दुनिया के देशों में संसाधनों की असमानता है। इसके तीन मुख्य आधार हैं:</p>
+                <ol style="padding-left: 20px; margin-top: 15px;">
+                    <li style="margin-bottom: 15px;"><strong>राष्ट्रीय संसाधनों में भिन्नता:</strong> हर देश की जलवायु, मिट्टी, और खनिज (Mineral) अलग हैं। (जैसे अरब देशों में तेल है, तो वे उसका निर्यात करते हैं)।</li>
+                    <li style="margin-bottom: 15px;"><strong>जनसंख्या का कारक:</strong> घनी आबादी वाले देश सस्ते <strong>श्रम-प्रधान</strong> (Labour-intensive) उत्पाद बनाते हैं, जबकि कम जनसंख्या वाले देश <strong>मशीनी</strong> उत्पादों का निर्यात करते हैं।</li>
+                    <li><strong>आर्थिक विकास की अवस्था:</strong> अविकसित देश केवल <strong>कच्चे माल</strong> का निर्यात करते हैं, जबकि विकसित औद्योगिक राष्ट्र <strong>विनिर्मित (Manufactured) वस्तुओं</strong> का निर्यात करते हैं।</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- QUESTION 5 -->
+        <div class="qa-card" id="q5">
+            <div class="badge-container">
+                <div class="badge">Q5</div>
+            </div>
+            <h2>जनसंख्या का आकार और संस्कृति व्यापार को कैसे प्रभावित करते हैं?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong>संस्कृति (Culture):</strong> कुछ देशों में सांस्कृतिक कारणों से विशिष्ट कलाओं का विकास होता है (जैसे चीन का उच्च कोटि का चीनी मिट्टी का बर्तन या ईरान के कालीन), जिनकी दुनिया भर में भारी मांग होती है।</li>
+                    <li><strong>जनसंख्या का आकार:</strong> जिन देशों की आबादी बहुत अधिक होती है (जैसे भारत/चीन), वहां देश का अधिकांश उत्पादन देश के <strong>भीतर ही खप (Consume)</strong> जाता है। इसलिए, प्रति व्यक्ति अंतरराष्ट्रीय व्यापार का हिस्सा कम हो जाता है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 6 -->
+        <div class="qa-card" id="q6">
+            <div class="badge-container">
+                <div class="badge">Q6</div>
+            </div>
+            <h2>विदेशी निवेश (FDI) और उन्नत परिवहन प्रणाली ने व्यापार को किस प्रकार गति प्रदान की है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong>विदेशी निवेश:</strong> विकसित देशों ने विकासशील देशों के 'खनन' और 'बागाती कृषि' (Plantation) में भारी निवेश किया, जिससे वहां से कच्चे माल का उत्पादन और निर्यात बढ़ा।</li>
+                    <li><strong>परिवहन:</strong> पुराने लकड़ी के जहाजों की जगह <strong>आधुनिक कंटेनर जहाजों (Containerization)</strong> और एयर कार्गो ने ले ली। इससे एक साथ हज़ारों टन माल बहुत तेज़ी से और सुरक्षित रूप से समंदर पार भेजा जाने लगा है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 7 -->
+        <div class="qa-card" id="q7">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>'व्यापार की संरचना' (Composition of Trade) में समय के साथ क्या बड़े बदलाव आए हैं?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> व्यापार की संरचना का अर्थ है "किन मुख्य वस्तुओं और सेवाओं का आदान-प्रदान होता है।"</p>
+                <div style="background: #fdfaf0; padding: 25px; border-radius: 20px; border-left: 8px solid #d97706; margin-top: 15px;">
+                    <strong style="color: #92400e; display: block; margin-bottom: 10px;">बदलाव:</strong>
+                    1. पहले विश्व व्यापार में मुख्य रूप से केवल <strong>प्राथमिक वस्तुओं</strong> (जैसे कृषि उत्पाद और खनिज) का दबदबा था।<br>
+                    2. बाद में औद्योगिक क्रांति से <strong>विनिर्मित (Manufactured) औद्योगिक वस्तुओं</strong> का हिस्सा बढ़ गया।<br>
+                    3. वर्तमान में <strong>सेवाओं (Services)</strong> जैसे ज्ञान, पर्यटन, सॉफ्टवेयर और बैंकिंग (अदृश्य व्यापार) का हिस्सा विश्व व्यापार में बहुत तेज़ी से बढ़ रहा है।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 8 -->
+        <div class="qa-card" id="q8">
+            <div class="badge-container">
+                <div class="badge">Q8</div>
+            </div>
+            <h2>'व्यापार का परिमाण' (Volume of Trade) क्या है और इसमें भारी वृद्धि क्यों हुई है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> अंतरराष्ट्रीय स्तर पर विनिमय (Exchange) की जाने वाली कुल वस्तुओं और सेवाओं के <strong>कुल मूल्य</strong> (Total Value - आमतौर पर डॉलर में) को व्यापार का परिमाण (Volume of Trade) कहा जाता है।</p>
+                <p style="margin-top: 15px;"><strong>वृद्धि के कारण:</strong> वैश्वीकरण (Globalization), मुक्त व्यापार नीतियों (टैरिफ में कमी), और जहाजों/कंटेनरों के विकास के कारण पिछले कुछ दशकों में व्यापार का परिमाण कई गुना बढ़ गया है।</p>
+            </div>
+        </div>
+
+        <!-- QUESTION 9 -->
+        <div class="qa-card" id="q9">
+            <div class="badge-container">
+                <div class="badge">Q9</div>
+            </div>
+            <h2>'व्यापार के दिशात्मक प्रतिरूप' (Directional Pattern) से क्या तात्पर्य है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> 'व्यापार की दिशा' से तात्पर्य है कि <strong>"कौन-सा देश किस देश के साथ व्यापार कर रहा है।"</strong></p>
+                <ul style="padding-left: 20px; margin-top: 15px;">
+                    <li style="margin-bottom: 10px;">अतीत में विकासशील देश केवल कच्चा माल भेजते थे और विकसित देशों से मशीनें खरीदते थे।</li>
+                    <li>आज पैटर्न बदल गया है: <strong>विकसित देश आपस में ही सबसे ज़्यादा व्यापार करते हैं</strong>, और भारत/चीन जैसे विकासशील देश भी अब तैयार माल के बड़े निर्यातक बन गए हैं।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 10 -->
+        <div class="qa-card" id="q10">
+            <div class="badge-container">
+                <div class="badge">Q10</div>
+            </div>
+            <h2>आधुनिक वैश्विक व्यापार में 'एशिया के उदय' का क्या अर्थ है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong></p>
+                <div style="background: #eff6ff; padding: 25px; border-radius: 20px; border-left: 8px solid #3b82f6; margin-top: 15px;">
+                    कुछ दशकों पहले तक वैश्विक व्यापार पूरा का पूरा यूरोप और उत्तरी अमेरिका (USA) के नियंत्रण में था। लेकिन आज, <strong>चीन, भारत और दक्षिण-पूर्वी एशियाई देशों (जैसे जापान, दक्षिण कोरिया)</strong> के तीव्र औद्योगिक विकास के कारण वैश्विक व्यापार का 'गुरुत्वाकर्षण केंद्र' पश्चिम से खिसक कर <strong>एशिया महाद्वीप</strong> की ओर आ गया है। एशिया अब 'दुनिया का কারখানা' (World's Factory) बन गया है।
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 HEADER -->
+        <div style="background: #ffffff; border-left: 15px solid #2563eb; padding: 35px 50px; border-radius: 25px; margin-top: 80px; margin-bottom: 60px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <h2 style="font-family: 'Outfit', sans-serif; color: #1e3a8a; font-size: 3rem; margin: 0; font-weight: 800;">खण्ड 2: व्यापार संतुलन, डम्पिंग और WTO (प्रश्न 11-20)</h2>
+            <p style="font-size: 1.8rem; color: #4b5563; margin-top: 10px; font-weight: 500;">अनुकूल/प्रतिकूल व्यापार, मुक्त व्यापार की समस्याएँ और विश्व व्यापार संगठन की भूमिका।</p>
+        </div>
+
+        <!-- QUESTION 11 -->
+        <div class="qa-card" id="q11">
+            <div class="badge-container">
+                <div class="badge">Q11</div>
+            </div>
+            <h2>'व्यापार संतुलन' (Balance of Trade) से क्या आशय है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> व्यापार संतुलन का अर्थ है किसी एक देश द्वारा अन्य देशों को <strong>निर्यात (Export) किए गए माल के मूल्य</strong> और अन्य देशों से <strong>आयात (Import) किए गए माल के मूल्य</strong> के बीच का दर्ज किया गया अंतर।</p>
+            </div>
+        </div>
+
+        <!-- QUESTION 12 -->
+        <div class="qa-card" id="q12">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>अनुकूल (Surplus) और प्रतिकूल (Deficit) व्यापार संतुलन में क्या अंतर है?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px; list-style-type: decimal;">
+                    <li style="margin-bottom: 15px;"><strong>अनुकूल व्यापार संतुलन:</strong> जब देश के <strong>निर्यात का मूल्य आयात से अधिक</strong> होता है (Export > Import)। इसका अर्थ है कि देश कमा ज़्यादा रहा है और खर्च कम कर रहा है, जो आर्थिक मजबूती का संकेत है।</li>
+                    <li><strong>प्रतिकूल व्यापार संतुलन:</strong> जब <strong>आयात का मूल्य देश के निर्यात से अधिक</strong> हो जाता है (Import > Export)। इसका मतलब है कि देश को विदेशों में अधिक भुगतान करना पड़ रहा है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 13 -->
+        <div class="qa-card" id="q13">
+            <div class="badge-container">
+                <div class="badge">Q13</div>
+            </div>
+            <h2>निरंतर प्रतिकूल (Deficit) व्यापार संतुलन का किसी देश की अर्थव्यवस्था पर क्या प्रभाव पड़ता है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> अगर कोई देश लगातार घाटे का व्यापार कर रहा है, तो:</p>
+                <div style="background: #fef2f2; padding: 25px; border-radius: 20px; border-left: 8px solid #ef4444; margin-top: 15px;">
+                    1. देश का <strong>विदेशी मुद्रा भंडार</strong> समाप्त होने लगेगा।<br>
+                    2. देश पर विश्व बैंक या अन्य देशों का <strong>कर्ज़ (Debt) बढ़ जाएगा</strong>।<br>
+                    3. अंततः देश की अपनी मुद्रा (Currency) का मूल्य वैश्विक बाज़ार में <strong>गिर जाएगा</strong>, जिससे महँगाई बहुत बढ़ जाएगी।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 14 -->
+        <div class="qa-card" id="q14">
+            <div class="badge-container">
+                <div class="badge">Q14</div>
+            </div>
+            <h2>'मुक्त व्यापार' (Free Trade/Trade Liberalization) क्या है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> अंतरराष्ट्रीय व्यापार में देशों द्वारा लगाए गए <strong>सीमा शुल्क (Tariffs), कोटे या अन्य सरकारी प्रतिबंधों और बाधाओं को हटाना/कम करना</strong> ताकि विदेशी माल आसानी से बाज़ार में आ-जा सके, 'मुक्त व्यापार' या <strong>व्यापार उदारीकरण</strong> कहलाता है।</p>
+            </div>
+        </div>
+
+        <!-- QUESTION 15 -->
+        <div class="qa-card" id="q15">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>मुक्त व्यापार के क्या नुकसान या आलोचनाएँ हैं?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong>असमान प्रतिस्पर्धा:</strong> यह अक्सर अमीर और विकसित देशों के पक्ष में काम करता है। विकसित देशों का सस्ता और मशीनी माल विकासशील देशों के बाज़ारों में भर जाता है।</li>
+                    <li><strong>स्थानीय उद्योगों का पतन:</strong> विकासशील देशों के छोटे और <strong>घरेलू उद्योग</strong> इस सस्ती विदेशी प्रतिस्पर्धा का सामना नहीं कर पाते और धीरे-धीरे नष्ट हो जाते हैं।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 16 -->
+        <div class="qa-card" id="q16">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>अंतरराष्ट्रीय व्यापार में 'डम्पिंग' (Dumping) का क्या अर्थ है और यह क्यों हानिकारक है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong></p>
+                <div style="background: #fff1f2; padding: 25px; border-radius: 20px; border-left: 8px solid #e11d48; margin-top: 15px;">
+                    <strong style="color: #9f1239; display: block; margin-bottom: 10px;">डम्पिंग:</strong>
+                    जब कोई 'अमीर या शक्तिशाली देश' अपने उत्पादों को दूसरे देशों में <strong>उसकी वास्तविक उत्पादन लागत (Cost price) से भी कम कीमत पर (सस्ते में)</strong> बेचता है, तो इसे डम्पिंग कहा जाता है।<br><br>
+                    <strong>नुकसान:</strong> यह जानबूझकर किया जाता है ताकि उस देश के स्थानीय उद्योगों को 'मूल्य-युद्ध' (Price war) में हराकर पूरी तरह से बाज़ार पर 'एकाधिकार' (कब्ज़ा) किया जा सके।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 17 -->
+        <div class="qa-card" id="q17">
+            <div class="badge-container">
+                <div class="badge">Q17</div>
+            </div>
+            <h2>विश्व व्यापार संगठन (WTO) की स्थापना कब हुई और इसका मुख्यालय कहाँ स्थित है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong></p>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li><strong>स्थापना:</strong> 1 जनवरी, 1995</li>
+                    <li><strong>मुख्यालय:</strong> जेनेवा (Geneva), स्विट्जरलैंड।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 18 -->
+        <div class="qa-card" id="q18">
+            <div class="badge-container">
+                <div class="badge">Q18</div>
+            </div>
+            <h2>GATT (गैट) क्या था और WTO ने इसका स्थान क्यों लिया?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> <strong>GATT</strong> (General Agreement on Tariffs and Trade) 1948 में बना व्यापारिक टैरिफ को कम करने वाला एक समझौता था।</p>
+                <div style="background: #eff6ff; padding: 25px; border-radius: 20px; border-left: 8px solid #3b82f6; margin-top: 15px;">
+                    <strong>WTO क्यों बना?</strong> GATT मुख्य रूप से केवल 'भौतिक वस्तुओं' (Goods) के व्यापार को कवर करता था। लेकिन जैसे-जैसे 'सेवाओं' (Services যেমন টেলিকম, बैंकिंग) और बौद्धिक संपदा (Intellectual Property) का व्यापार बढ़ा, एक अधिक स्थायी और शक्तिशाली <strong>'संगठन'</strong> की आवश्यकता महसूस हुई। इसलिए 1995 में GATT को <strong>WTO</strong> में बदल दिया गया।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 19 -->
+        <div class="qa-card" id="q19">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>विश्व व्यापार संगठन (WTO) के प्रमुख कार्य क्या हैं?</h2>
+            <div class="answer-block">
+                <p>WTO दुनिया का <strong>एकमात्र अंतरराष्ट्रीय संगठन</strong> है जो वैश्विक व्यापार के नियम तय करता है। इसके मुख्य कार्य हैं:</p>
+                <ol style="padding-left: 20px; margin-top: 15px;">
+                    <li style="margin-bottom: 10px;">राष्ट्रों के बीच व्यापार के लिए <strong>नियम (Rules)</strong> बनाना और उन्हें लागू करवाना।</li>
+                    <li style="margin-bottom: 10px;">विभिन्न देशों के बीच <strong>व्यापारिक विवादों (Trade Disputes)</strong> का निपटारा करना।</li>
+                    <li>यह सुनिश्चित करना कि व्यापार सुचारू रूप से, स्वतंत्रतापूर्वक और <strong>बिना किसी भेदभाव</strong> के चले।</li>
+                    <li>यह वस्तुओं के साथ-साथ 'सेवाओं' के व्यापार को भी बढ़ावा देता है।</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- QUESTION 20 -->
+        <div class="qa-card" id="q20">
+            <div class="badge-container">
+                <div class="badge">Q20</div>
+            </div>
+            <h2>व्यापार समूह (Regional Trade Blocs) क्या होते हैं और ये क्यों बनाए जाते हैं?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> जब कुछ देश जो भौगोलिक रूप से एक-दूसरे के पास होते हैं (पड़ोसी देश), आपस में व्यापार बाधाओं (Tax/Tariffs) को दूर करने और व्यापार को सुगम बनाने के लिए एक <strong>समूह (Group/Bloc)</strong> बनाते हैं, तो उसे प्रादेशिक व्यापार समूह कहते हैं। (जैसे EU या आसियान)।</p>
+                <p style="margin-top: 15px;"><strong>उद्देश्य:</strong> इनका मुख्य उद्देश्य सदस्य देशों के बीच व्यापार को तेजी से बढ़ाना और विश्व मंच पर <strong>संगठित होकर अपनी 'सौदेबाजी की शक्ति' (Bargaining power)</strong> को मजबूत करना है।</p>
+            </div>
+        </div>
+
+        <!-- SECTION 3 HEADER -->
+        <div style="background: #ffffff; border-left: 15px solid #ec4899; padding: 35px 50px; border-radius: 25px; margin-top: 80px; margin-bottom: 60px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <h2 style="font-family: 'Outfit', sans-serif; color: #9d174d; font-size: 3rem; margin: 0; font-weight: 800;">खण्ड 3: व्यापारिक समूह, पत्तन और भारत (प्रश्न 21-30)</h2>
+            <p style="font-size: 1.8rem; color: #4b5563; margin-top: 10px; font-weight: 500;">प्रादेशिक व्यापार समूह, प्रवेश द्वार के रूप में विभिन्न पत्तन और भारत का बदलता व्यापारिक स्वरूप।</p>
+        </div>
+
+        <!-- QUESTION 21 -->
+        <div class="qa-card" id="q21">
+            <div class="badge-container">
+                <div class="badge">Q21</div>
+            </div>
+            <h2>यूरोपीय संघ (EU) का संक्षिप्त वर्णन करें और इसकी साझा मुद्रा क्या है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> यूरोपीय संघ (EU) दुनिया का सबसे शक्तिशाली और एकीकृत <strong>प्रादेशिक व्यापार समूह</strong> है, जिसमें 27 यूरोपीय देश शामिल हैं।</p>
+                <div style="background: #eff6ff; padding: 25px; border-radius: 20px; border-left: 8px solid #3b82f6; margin-top: 15px;">
+                    यह एक 'एकल बाज़ार' (Single Market) के रूप में कार्य करता है जहाँ सदस्य देशों के बीच व्यापार में कोई टैक्स नहीं लगता। इनकी अपनी एक साझा मु्द्रा <strong>'यूरो' (Euro)</strong> है।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 22 -->
+        <div class="qa-card" id="q22">
+            <div class="badge-container">
+                <div class="badge">Q22</div>
+            </div>
+            <h2>आसियान (ASEAN) क्या है और इसका मुख्य उद्देश्य क्या है?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px; list-style-type: square;">
+                    <li style="margin-bottom: 10px;"><strong style="color: #0d9488;">आसियान:</strong> यह दक्षिण-पूर्वी एशियाई राष्ट्रों का एक संघ है (मुख्यालय: जकार्ता)। इसमें 10 देश शामिल हैं (जैसे थाईलैंड, इंडोनेशिया, सिंगापुर)।</li>
+                    <li><strong style="color: #0d9488;">उद्देश्य:</strong> इसका मुख्य उद्देश्य इस क्षेत्र में <strong>आर्थिक विकास (Economic Growth)</strong> को गति देना और व्यापार के माध्यम से क्षेत्रीय और सांस्कृतिक शांति बनाए रखना है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 23 -->
+        <div class="qa-card" id="q23">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>सार्क (SAARC/SAFTA) और ओपेक (OPEC) संगठनों के मुख्य कार्य क्या हैं?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong>सार्क (SAARC):</strong> यह भारत और उसके पड़ोसी देशों (दक्षिण एशिया) का समूह है। इसके तहत बने समझौते 'साफटा (SAFTA)' का उद्देश्य इन देशों के बीच व्यापारिक <strong>टैरिफ (टैक्स) को कम करना</strong> है।</li>
+                    <li><strong>ओपेक (OPEC):</strong> यह पेट्रोलियम निर्यातक देशों का संगठन है। यह दुनिया के बाज़ार में <strong>कच्चे तेल (Crude Oil) की कीमतों और आपूर्ति</strong> को नियंत्रित करता है (मुख्यालय: वियना)।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 24 -->
+        <div class="qa-card" id="q24">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>अंतरराष्ट्रीय व्यापार में पत्तनों (Ports) को व्यापार का 'प्रवेश द्वार' (Gateways) क्यों कहा जाता है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> दुनिया का अधिकांश भारी व्यापार समुद्री मार्गों से होता है।</p>
+                <p style="margin-top: 15px;">पत्तन <strong>समुद्री और स्थलीय (ज़मीनी) मार्गों का मिलन बिंदु</strong> होते हैं। विदेशों से आने वाला माल यहीं उतरता है और देश से जाने वाला माल यहीं से जहाज़ों में लादा जाता है। सारी लोडिंग, अनलोडिंग और भंडारण की सुविधाएँ यहीं होती हैं, इसीलिए इन्हें 'प्रवेश द्वार' कहते हैं।</p>
+            </div>
+        </div>
+
+        <!-- QUESTION 25 -->
+        <div class="qa-card" id="q25">
+            <div class="badge-container">
+                <div class="badge">Q25</div>
+            </div>
+            <h2>अंतर्देशीय पत्तन (Inland Ports) और बाह्य पत्तन (Out Ports) में क्या अंतर है?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px; list-style-type: decimal;">
+                    <li style="margin-bottom: 20px;">
+                        <strong style="color: #10b981;">अंतर्देशीय पत्तन:</strong> ये समुद्र तट से दूर 'नदियों' या 'नहरों' के किनारे स्थित होते हैं और किसी जलमार्ग के ज़रिए समुद्र से जुड़े होते हैं। (जैसे कोलकाता पत्तन हुगली नदी पर)।
+                    </li>
+                    <li>
+                        <strong style="color: #10b981;">बाह्य पत्तन:</strong> ये मुख्य बंदरगाह से काफी दूर 'गहरे महासागर' में बनाए जाते हैं। ये उन <strong>'विशाल जहाज़ों'</strong> के लिए बनाए जाते हैं, जो कम गहराई के कारण मुख्य तट (बंदरगाह) तक नहीं पहुँच सकते।
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 26 -->
+        <div class="qa-card" id="q26">
+            <div class="badge-container">
+                <div class="badge">Q26</div>
+            </div>
+            <h2>विशिष्ट कार्यों के आधार पर 'आंत्रपो पत्तन' (Entrepot Ports) और 'मार्ग पत्तन' (Ports of Call) को स्पष्ट करें।</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong>आंत्रपो पत्तन:</strong> ये वे केंद्र हैं जहाँ विभिन्न देशों से माल <strong>'एकत्र' (Collect)</strong> किया जाता है, और फिर उसी माल को बिना किसी बड़े बदलाव के अन्य देशों को <strong>'निर्यात' (Re-export)</strong> कर दिया जाता है (जैसे सिंगापुर, कोपेनहेगन)।</li>
+                    <li><strong>मार्ग पत्तन (विश्राम पत्तन):</strong> लंबी समुद्री यात्राओं के दौरान ये पत्तन जहाज़ों में <strong>'ईंधन' (Fuel)</strong> और भोजन-पानी भरने तथा नाविकों के आराम के लिए इस्तेमाल होते हैं (जैसे अदन, होनोलूलू)।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 27 -->
+        <div class="qa-card" id="q27">
+            <div class="badge-container">
+                <div class="badge">Q27</div>
+            </div>
+            <h2>नौसेना पत्तन (Naval Ports) और तेल पत्तन (Oil Ports) क्या होते हैं?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong style="color: #ec4899;">नौसेना पत्तन:</strong> ये व्यापार के लिए नहीं, बल्कि विशेष रूप से सेना की <strong>पनडुब्बियों और युद्धपोतों (Warships)</strong> की मरम्मत और रख-रखाव के लिए बने होते हैं। (जैसे भारत में कारवाड़ या कोच्चि)।</li>
+                    <li><strong style="color: #ec4899;">तेल पत्तन:</strong> ये पत्तन पूरी तरह से कच्चे तेल के प्रसंस्करण (Refining) और 'पाइपलाइनों' के माध्यम से परिवहन के लिए विशेष रूप से डिज़ाइन किए जाते हैं (जैसे वेनेजुएला का माराकाइबो)।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 28 -->
+        <div class="qa-card" id="q28">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>स्वतंत्रता के बाद भारत के विदेशी व्यापार (निर्यात) की संरचना में क्या मुख्य बदलाव आए हैं?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> आज़ादी के समय भारत मुख्य रूप से <strong>कच्चे माल (जैसे जूट, कपास)</strong> का निर्यातक था।</p>
+                <div style="background: #fdfaf0; padding: 25px; border-radius: 20px; border-left: 8px solid #d97706; margin-top: 15px;">
+                    <strong>आधुनिक बदलाव:</strong> अब भारत के निर्यात से कच्चे माल का हिस्सा बहुत कम हो गया है। आज भारत <strong>सॉफ्टवेयर (IT/Services), रत्न और आभूषण (Gems & Jewelry), इंजीनियरिंग सामान, और रसायनों (Chemicals)</strong> का दुनिया का एक बहुत बड़ा निर्यातक बन गया है।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 29 -->
+        <div class="qa-card" id="q29">
+            <div class="badge-container">
+                <div class="badge">Q29</div>
+            </div>
+            <h2>भारत मुख्य रूप से किन वस्तुओं का आयात (Import) करता है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> भारत का एक बड़ा व्यापार 'आयात' पर निर्भर है।</p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    <tr style="background: #f1f5f9; text-align: left;"><th style="padding: 15px; border-bottom: 2px solid #cbd5e1;">प्रमुख आयात (Imports)</th></tr>
+                    <tr><td style="padding: 15px; border-bottom: 1px solid #e2e8f0;">1. पेट्रोलियम उत्पाद (कच्चा तेल) - सबसे बड़ा हिस्सा।</td></tr>
+                    <tr><td style="padding: 15px; border-bottom: 1px solid #e2e8f0;">2. सोना (Gold) और कीमती पत्थर।</td></tr>
+                    <tr><td style="padding: 15px; border-bottom: 1px solid #e2e8f0;">3. इलेक्ट्रॉनिक सामान, कंप्यूटर और भारी मशीनरी।</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- QUESTION 30 -->
+        <div class="qa-card" id="q30">
+            <div class="badge-container">
+                <div class="badge">Q30</div>
+            </div>
+            <h2>"अंतरराष्ट्रीय व्यापार केवल वस्तुओं का विनिमय नहीं, बल्कि राष्ट्रों के बीच एक सेतु है।" इस कथन को स्पष्ट करें।</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong></p>
+                <div style="background: #f0fdf4; padding: 25px; border-radius: 20px; border-left: 8px solid #10b981; margin-top: 15px;">
+                    अंतरराष्ट्रीय व्यापार से न केवल वस्तुओं और पैसों का आदान-प्रदान होता है, बल्कि <strong>नई तकनीकों (Technology), विचारों, शिक्षा और संस्कृतियों</strong> का भी प्रसार होता है। यह देशों को आर्थिक रूप से एक-दूसरे पर निर्भर बनाता है, जिससे उनके बीच तनाव कम होता है और वैश्विक शांति व भाईचारा (Global Village) स्थापित होता है। इसी कारण इसे राष्ट्रों के बीच का सेतु (Bridge) कहा जाता है।
+                </div>
+            </div>
+        </div>
+
+        <!-- GOLD MASTER BADGE -->
+        <div style="text-align: center; margin-top: 120px; margin-bottom: 60px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 60px; border-radius: 50px; box-shadow: 0 25px 50px -12px rgba(5, 150, 105, 0.4); color: white; position: relative; overflow: hidden; border: 4px solid #fbbf24;">
+            <div style="font-size: 8rem; margin-bottom: 20px; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));">🏆</div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 4.5rem; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: 2px;">अध्याय 9 पूर्ण (Gold Master)</h2>
+            <p style="font-size: 2.8rem; font-weight: 800; margin-top: 10px; opacity: 0.9;">International Trade</p>
+            <div style="margin-top: 40px; background: rgba(255, 255, 255, 0.2); display: inline-block; padding: 15px 40px; border-radius: 100px; font-weight: 800; font-size: 1.8rem; backdrop-filter: blur(5px); color: #fbbf24;">
+                20 MCQs + 30 Subjective Questions Verified
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

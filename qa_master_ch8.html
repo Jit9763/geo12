@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>अध्याय 8: परिवहन एवं संचार - Q&A Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #065f46;
+            --primary-light: #10b981;
+            --secondary: #fbbf24;
+            --text-dark: #1f2937;
+            --bg-body: #f0fdf4;
+            --card-bg: #ffffff;
+            --gradient: linear-gradient(135deg, #065f46 0%, #059669 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.7;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--gradient);
+            padding: 80px 40px;
+            border-radius: 40px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            margin-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.1;
+        }
+
+        header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 2.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge-meta {
+            display: inline-block;
+            background: var(--secondary);
+            color: #78350f;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* MCQ Grid Layout */
+        .mcq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .mcq-card {
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-top: 6px solid #fbbf24;
+            transition: transform 0.2s;
+        }
+
+        .mcq-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .mcq-q-num {
+            color: #d97706;
+            font-family: 'Outfit';
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: #fef3c7;
+            padding: 5px 15px;
+            border-radius: 10px;
+        }
+
+        .mcq-question {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #1f2937;
+            line-height: 1.4;
+        }
+
+        .mcq-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .mcq-opt {
+            background: #f8fafc;
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .mcq-correct {
+            background: #ecfdf5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 1px dashed #34d399;
+        }
+
+        /* Subjective QA Styles */
+        .qa-card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-container {
+            align-self: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(6, 95, 70, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .qa-card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .answer-block {
+            background: #f8fafc;
+            padding: 35px;
+            border-radius: 20px;
+            border-left: 8px solid var(--secondary);
+            font-size: 1.8rem;
+            color: #334155;
+        }
+
+        @media (max-width: 1024px) {
+            header h1 { font-size: 3.5rem; }
+            .qa-card { padding: 30px; }
+            .mcq-grid { grid-template-columns: 1fr; }
+            .mcq-options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>अध्याय 8: परिवहन एवं संचार</h1>
+            <p>Transport and Communication - Master Q&A Portal</p>
+            <div class="badge-meta">Emerald Earth Master Edition • Class 12</div>
+        </header>
+
+        <!-- SECTION 0: MCQs -->
+        <div style="background: #ffffff; border-left: 15px solid #fbbf24; padding: 35px 50px; border-radius: 25px; margin-bottom: 50px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <h2 style="font-family: 'Outfit', sans-serif; color: #d97706; font-size: 3rem; margin: 0; font-weight: 800;">खण्ड 0: बहुविकल्पीय प्रश्न (MCQs)</h2>
+            <p style="font-size: 1.8rem; color: #4b5563; margin-top: 10px; font-weight: 500;">बोर्ड परीक्षा आधारित 20 अति-महत्वपूर्ण प्रश्न</p>
+        </div>
+
+        <div class="mcq-grid">
+            <!-- 1 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.1</div>
+                <div class="mcq-question">विश्व का सबसे लंबा पार-महाद्वीपीय रेलमार्ग कौन-सा है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) कनाडियन पैसिफिक</div>
+                    <div class="mcq-opt">(B) ट्रांस-साइबेरियन पीक</div>
+                    <div class="mcq-opt">(C) ट्रांस-साइबेरियन</div>
+                    <div class="mcq-opt">(D) स्टुअर्ट रेलमार्ग</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) ट्रांस-साइबेरियन</div>
+            </div>
+            <!-- 2 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.2</div>
+                <div class="mcq-question">पनामा नहर किन दो महासागरों को जोड़ती है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) प्रशांत और हिंद महासागर</div>
+                    <div class="mcq-opt">(B) अटलांटिक और प्रशांत महासागर</div>
+                    <div class="mcq-opt">(C) अटलांटिक और हिंद महासागर</div>
+                    <div class="mcq-opt">(D) आर्कटिक और प्रशांत महासागर</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) अटलांटिक और प्रशांत महासागर</div>
+            </div>
+            <!-- 3 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.3</div>
+                <div class="mcq-question">स्वेज नहर किन दो जलराशियों को मिलाती है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) लाल सागर और अरब सागर</div>
+                    <div class="mcq-opt">(B) भूमध्य सागर और काला सागर</div>
+                    <div class="mcq-opt">(C) भूमध्य सागर और लाल सागर</div>
+                    <div class="mcq-opt">(D) काला सागर और लाल सागर</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) भूमध्य सागर और लाल सागर</div>
+            </div>
+            <!-- 4 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.4</div>
+                <div class="mcq-question">'बिग इंच' (Big Inch) पाइपलाइन के द्वारा किसका परिवहन किया जाता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) दूध</div>
+                    <div class="mcq-opt">(B) जल</div>
+                    <div class="mcq-opt">(C) तरल पेट्रोलियम (पेट्रोल)</div>
+                    <div class="mcq-opt">(D) तरल गैस (LPG)</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) तरल पेट्रोलियम (पेट्रोल)</div>
+            </div>
+            <!-- 5 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.5</div>
+                <div class="mcq-question">राइन जलमार्ग किस महाद्वीप का सबसे व्यस्त आंतरिक जलमार्ग है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) उत्तरी अमेरिका</div>
+                    <div class="mcq-opt">(B) यूरोप</div>
+                    <div class="mcq-opt">(C) एशिया</div>
+                    <div class="mcq-opt">(D) अफ्रीका</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) यूरोप</div>
+            </div>
+            <!-- 6 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.6</div>
+                <div class="mcq-question">विश्व का सबसे व्यस्त समुद्री व्यापारिक मार्ग कौन-सा है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) उत्तर अटलांटिक समुद्री मार्ग</div>
+                    <div class="mcq-opt">(B) उत्तमाशा अंतरीप मार्ग</div>
+                    <div class="mcq-opt">(C) भूमध्य सागर-हिंद महासागर मार्ग</div>
+                    <div class="mcq-opt">(D) दक्षिण प्रशांत मार्ग</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (A) उत्तर अटलांटिक समुद्री मार्ग</div>
+            </div>
+            <!-- 7 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.7</div>
+                <div class="mcq-question">लंबी दूरी तक भारी और स्थूल (Bulky) माल ले जाने के लिए सबसे सस्ता परिवहन साधन कौन-सा है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) सड़क परिवहन</div>
+                    <div class="mcq-opt">(B) वायु परिवहन</div>
+                    <div class="mcq-opt">(C) जल परिवहन</div>
+                    <div class="mcq-opt">(D) पाइपलाइन</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) जल परिवहन</div>
+            </div>
+            <!-- 8 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.8</div>
+                <div class="mcq-question">'पैन-अमेरिकन' महामार्ग किन दो क्षेत्रों को जोड़ता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) उत्तरी अमेरिका और यूरोप</div>
+                    <div class="mcq-opt">(B) उत्तरी अमेरिका और दक्षिणी अमेरिका</div>
+                    <div class="mcq-opt">(C) एशिया और अमेरिका</div>
+                    <div class="mcq-opt">(D) उत्तरी अमेरिका और ऑस्ट्रेलिया</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) उत्तरी अमेरिका और दक्षिणी अमेरिका</div>
+            </div>
+            <!-- 9 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.9</div>
+                <div class="mcq-question">कनाडियन पैसिफिक रेलमार्ग 'अटलांटिक तट' को किस तट से जोड़ता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) आर्कटिक तट</div>
+                    <div class="mcq-opt">(B) प्रशांत तट</div>
+                    <div class="mcq-opt">(C) हिंद महासागर तट</div>
+                    <div class="mcq-opt">(D) मैक्सिको की खाड़ी</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) प्रशांत तट</div>
+            </div>
+            <!-- 10 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.10</div>
+                <div class="mcq-question">'आंत्रपो' (Entrepot) पत्तन का मुख्य कार्य क्या है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) जहाजों की मरम्मत करना</div>
+                    <div class="mcq-opt">(B) कच्चा तेल निकालना</div>
+                    <div class="mcq-opt">(C) विभिन्न देशों का माल एकत्र कर निर्यात करना</div>
+                    <div class="mcq-opt">(D) नौसेना को सुरक्षा देना</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) विभिन्न देशों का माल एकत्र कर निर्यात करना</div>
+            </div>
+            <!-- 11 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.11</div>
+                <div class="mcq-question">पार-महाद्वीपीय 'स्टुअर्ट महामार्ग' किस देश में स्थित है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) कनाडा</div>
+                    <div class="mcq-opt">(B) रूस</div>
+                    <div class="mcq-opt">(C) ऑस्ट्रेलिया</div>
+                    <div class="mcq-opt">(D) ब्राज़ील</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) ऑस्ट्रेलिया</div>
+            </div>
+            <!-- 12 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.12</div>
+                <div class="mcq-question">भारत में 'ब्रॉड गेज' (बड़ी लाइन) पटरियों के बीच की चौड़ाई लगभग कितनी होती है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) 1.0 मीटर</div>
+                    <div class="mcq-opt">(B) 1.44 मीटर</div>
+                    <div class="mcq-opt">(C) 1.676 मीटर (या 1.5 से अधिक)</div>
+                    <div class="mcq-opt">(D) 0.762 मीटर</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) 1.676 मीटर</div>
+            </div>
+            <!-- 13 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.13</div>
+                <div class="mcq-question">'पैकेट स्टेशन' (Packet Stations) या 'फेरी पत्तन' मुख्य रूप से क्या करते हैं?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) जहाजों को ईंधन देते हैं</div>
+                    <div class="mcq-opt">(B) छोटी दूरियों पर डाक और यात्रियों को ले जाते हैं</div>
+                    <div class="mcq-opt">(C) युद्धपोतों की मरम्मत करते हैं</div>
+                    <div class="mcq-opt">(D) तेल का शोधन करते हैं</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) छोटी दूरियों पर डाक और यात्रियों को ले जाते हैं</div>
+            </div>
+            <!-- 14 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.14</div>
+                <div class="mcq-question">सिंगापुर, रॉटरडैम और कोपेनहेगन किस प्रकार के पत्तन के उदाहरण हैं?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) मार्ग पत्तन (Ports of Call)</div>
+                    <div class="mcq-opt">(B) नौसेना पत्तन</div>
+                    <div class="mcq-opt">(C) आंत्रपो पत्तन (Entrepot)</div>
+                    <div class="mcq-opt">(D) बाह्य पत्तन (Out Ports)</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) आंत्रपो पत्तन (Entrepot)</div>
+            </div>
+            <!-- 15 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.15</div>
+                <div class="mcq-question">ट्रांस-साइबेरियन रेलमार्ग के 'पूर्वी' छोर पर कौन-सा स्टेशन स्थित है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) सेंट पीटर्सबर्ग</div>
+                    <div class="mcq-opt">(B) व्लादिवोस्तोक</div>
+                    <div class="mcq-opt">(C) मास्को</div>
+                    <div class="mcq-opt">(D) कज़ान</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) व्लादिवोस्तोक</div>
+            </div>
+            <!-- 16 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.16</div>
+                <div class="mcq-question">इंटरनेट की आभासी दुनिया को किस नाम से जाना जाता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) ग्लोबल विलेज</div>
+                    <div class="mcq-opt">(B) साइबर स्पेस</div>
+                    <div class="mcq-opt">(C) मैस मीडिया</div>
+                    <div class="mcq-opt">(D) नेटवर्क ग्रिड</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) साइबर स्पेस</div>
+            </div>
+            <!-- 17 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.17</div>
+                <div class="mcq-question">उपग्रह संचार (Satellite Communication) में भारत की प्रमुख उपग्रह प्रणाली कौन-सी है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) SPUTNIK</div>
+                    <div class="mcq-opt">(B) APOLLO</div>
+                    <div class="mcq-opt">(C) INSAT (इनसैट)</div>
+                    <div class="mcq-opt">(D) GPS</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (C) INSAT (इनसैट)</div>
+            </div>
+            <!-- 18 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.18</div>
+                <div class="mcq-question">गहरे जल वाले 'बाह्य पत्तन' (Out Ports) क्यों बनाए जाते हैं?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) केवल सैन्य उपयोग के लिए</div>
+                    <div class="mcq-opt">(B) ताकि बहुत बड़े जहाज़ वहाँ रुक सकें</div>
+                    <div class="mcq-opt">(C) नदियों के जल स्तर को कम करने के लिए</div>
+                    <div class="mcq-opt">(D) सिर्फ यात्रियों के लिए</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) ताकि बहुत बड़े जहाज़ वहाँ रुक सकें</div>
+            </div>
+            <!-- 19 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.19</div>
+                <div class="mcq-question">अलास्का महामार्ग कनाडा के एडमिल्टन नगर को किससे जोड़ता है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) वैंकूवर</div>
+                    <div class="mcq-opt">(B) फेयरबैंक्स</div>
+                    <div class="mcq-opt">(C) डार्विन</div>
+                    <div class="mcq-opt">(D) न्यूयॉर्क</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (B) फेयरबैंक्स</div>
+            </div>
+            <!-- 20 -->
+            <div class="mcq-card"><div class="mcq-q-num">Q.20</div>
+                <div class="mcq-question">निम्नलिखित में से कौन-सा पाइपलाइन का लाभ नहीं है?</div>
+                <div class="mcq-options">
+                    <div class="mcq-opt">(A) संचालन लागत बहुत कम होती है</div>
+                    <div class="mcq-opt">(B) इसमें ईंधन की खपत नहीं होती</div>
+                    <div class="mcq-opt">(C) इसे उबड़-खाबड़ रास्तों पर बिछाया जा सकता है</div>
+                    <div class="mcq-opt">(D) ठोस वस्तुओं (जैसे लोहा-स्टील) को आसानी से ले जाना</div>
+                </div>
+                <div class="mcq-correct">सही विकल्प: (D) ठोस वस्तुओं (जैसे लोहा-स्टील) को आसानी से ले जाना</div>
+            </div>
+        </div>
+
+        <!-- SECTION 1 HEADER -->
+        <div style="background: #ffffff; border-left: 15px solid #059669; padding: 35px 50px; border-radius: 25px; margin-top: 80px; margin-bottom: 60px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <h2 style="font-family: 'Outfit', sans-serif; color: #064e3b; font-size: 3rem; margin: 0; font-weight: 800;">खण्ड 1: सड़क एवं रेल परिवहन (प्रश्न 1-10)</h2>
+            <p style="font-size: 1.8rem; color: #4b5563; margin-top: 10px; font-weight: 500;">परिवहन के बुनियादी साधन, महामार्गों का वैश्विक जाल और रेलमार्गों का विस्तार।</p>
+        </div>
+
+        <!-- QUESTION 1 -->
+        <div class="qa-card" id="q1">
+            <div class="badge-container">
+                <div class="badge">Q1</div>
+            </div>
+            <h2>परिवहन (Transport) से क्या आशय है? इसके प्रमुख साधन (Modes) कौन-से हैं?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> परिवहन एक ऐसी व्यवस्था है जिसके द्वारा व्यक्तियों, तैयार माल और कच्चे माल को एक स्थान से दूसरे स्थान तक ले जाया जाता है। यह किसी भी अर्थव्यवस्था की 'धमनियां' (Arteries) हैं।</p>
+                <div style="background: #f0fdf4; padding: 25px; border-radius: 20px; border-left: 8px solid #059669; margin-top: 15px;">
+                    <strong style="color: #064e3b; display: block; margin-bottom: 10px;">प्रमुख साधन:</strong>
+                    1. <strong>स्थल परिवहन:</strong> सड़क, रेलमार्ग और पाइपलाइन।<br>
+                    2. <strong>जल परिवहन:</strong> महासागरीय मार्ग और आंतरिक (नदी/नहर) मार्ग।<br>
+                    3. <strong>वायु परिवहन:</strong> घरेलू और अंतर्राष्ट्रीय वायु मार्ग।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 2 -->
+        <div class="qa-card" id="q2">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>सड़क परिवहन जल या वायु परिवहन की तुलना में अधिक उपयोगी क्यों माना जाता है? कोई दो कारण बताएँ।</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px; list-style-type: disc;">
+                    <li style="margin-bottom: 15px;"><strong style="color: #064e3b;">द्वार-से-द्वार सेवा (Door-to-door Service):</strong> सड़क परिवहन एकमात्र ऐसा माध्यम है जो कारखाने या खेत से माल उठाकर सीधे उपभोक्ता के घर तक छोड़ सकता है। जल या वायु मार्ग के लिए बंदरगाह या हवाई अड्डे तक जाना अनिवार्य है।</li>
+                    <li><strong style="color: #064e3b;">लचीलापन (Flexibility):</strong> छोटी दूरी की यात्राओं के लिए यह सबसे सस्ता है। साथ ही, सड़कें ऊबड़-खाबड़ पहाड़ों और दुर्गम क्षेत्रों (जैसे हिमालय) में भी आसानी से बनाई जा सकती हैं जहाँ रेल या बड़े हवाई जहाज़ नहीं जा सकते।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 3 -->
+        <div class="qa-card" id="q3">
+            <div class="badge-container">
+                <div class="badge">Q3</div>
+            </div>
+            <h2>कच्ची और पक्की सड़कों (Unmetalled vs Metalled roads) में मुख्य अंतर क्या है?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong>कच्ची सड़कें:</strong> ये मिट्टी और पत्थरों की बनी होती हैं। बारिश (मानसून) के मौसम में ये कीचड़ से भर जाती हैं और यातायात के योग्य नहीं रहतीं।</li>
+                    <li><strong>पक्की सड़कें:</strong> ये तारकोल (Asphalt), सीमेंट या कंकरीट से बनी होती हैं। ये <strong>'सभी मौसमों' (All-weather)</strong> के अनुकूल होती हैं और भारी वाहनों के सुरक्षित यातायात की अनुमति देती हैं।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 4 -->
+        <div class="qa-card" id="q4">
+            <div class="badge-container">
+                <div class="badge">Q4</div>
+            </div>
+            <h2>महामार्ग (Highways) क्या होते हैं? इनकी प्रमुख विशेषताएँ बताएँ।</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> महामार्ग दूरस्थ स्थानों, प्रमुख शहरों और औद्योगिक केंद्रों को सीधे जोड़ने वाली <strong>उच्च-गति (High-speed)</strong> वाली पक्की सड़कें होती हैं।</p>
+                <div style="background: #fdfaf0; padding: 25px; border-radius: 20px; border-left: 8px solid #d97706; margin-top: 15px;">
+                    <strong style="color: #92400e; display: block; margin-bottom: 10px;">प्रमुख विशेषताएँ:</strong>
+                    1. इनमें ट्रैफ़िक के सुचारू प्रवाह के लिए अलग-अलग लेन (मल्टी-लेन) होती हैं।<br>
+                    2. यातायात को बिना रोक-टोक (सिग्नल-फ्री) चलाने के लिए फ्लाईओवर और अंडरपास बनाए जाते हैं।<br>
+                    3. ये कम से कम 80 मीटर चौड़े होते हैं ताकि गाड़ियाँ तेज़ गति से चल सकें।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 5 -->
+        <div class="qa-card" id="q5">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>विश्व के किन्हीं दो प्रमुख महामार्गों के नाम और उनके विस्तार (Extent) का वर्णन करें।</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px; list-style-type: decimal;">
+                    <li style="margin-bottom: 20px;">
+                        <strong style="color: #2563eb;">पैन-अमेरिकन महामार्ग (Pan-American Highway):</strong> यह एक विशाल सड़क नेटवर्क है जो दक्षिण अमेरिका के देशों को मध्य अमेरिका होते हुए उत्तरी अमेरिका (कनाडा और USA) से जोड़ता है।
+                    </li>
+                    <li>
+                        <strong style="color: #2563eb;">ट्रांस-कनाडियन महामार्ग (Trans-Canadian Highway):</strong> यह महामार्ग कनाडा में पूर्व से पश्चिम की ओर विशाल दूरी तय करता है। यह <strong>अटलांटिक तट</strong> पर 'सेंट जॉन' नगर को <strong>प्रशांत तट</strong> पर 'वैंकूवर' से जोड़ता है।
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 6 -->
+        <div class="qa-card" id="q6">
+            <div class="badge-container">
+                <div class="badge">Q6</div>
+            </div>
+            <h2>अलास्का महामार्ग और स्टुअर्ट महामार्ग का संक्षिप्त परिचय दें।</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong>अलास्का महामार्ग:</strong> यह उत्तरी अमेरिका में स्थित है, जो कनाडा के 'एडमिल्टन' शहर को संयुक्त राज्य अमेरिका (अलास्का राज्य) के 'फेयरबैंक्स' नगर से जोड़ता है।</li>
+                    <li><strong>स्टुअर्ट महामार्ग:</strong> यह ऑस्ट्रेलिया का सबसे प्रमुख महामार्ग है जो ऑस्ट्रेलिया को उत्तर से दक्षिण तक पार करता है। यह उत्तरी ऑस्ट्रेलिया के <strong>'डार्विन'</strong> को दक्षिणी तट के पास <strong>'मेलबोर्न'</strong> से जोड़ता है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 7 -->
+        <div class="qa-card" id="q7">
+            <div class="badge-container">
+                <div class="badge">Q7</div>
+            </div>
+            <h2>रेल परिवहन का मुख्य महत्व क्या है? यह सड़क परिवहन से किस प्रकार अलग है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> रेलमार्ग <strong>लंबी दूरी (Long distance)</strong> तक <strong>विशाल मात्रा में यात्रियों और भारी एवं स्थूल माल (Bulky freight)</strong> (जैसे कोयला, लौह अयस्क, अनाज) को ले जाने के लिए सबसे उपयुक्त और सस्ता साधन हैं।</p>
+                <div style="background: #eff6ff; padding: 25px; border-radius: 20px; border-left: 8px solid #3b82f6; margin-top: 15px;">
+                    <strong>अंतर:</strong>
+                    सड़कें छोटी दूरी के 'डोर-टू-डोर' परिवहन के लिए अच्छी हैं, जबकि रेलमार्ग लंबी दूरी के थोक परिवहन (Bulk transport) के लिए होते हैं। रेल ट्रैफ़िक केवल निर्धारित पटरियों और स्टेशनों पर ही रुक सकता है।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 8 -->
+        <div class="qa-card" id="q8">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>'रेल गेज' (Railway Gauges) क्या होते हैं? विश्व में इसके प्रमुख प्रकार कौन-से हैं?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> रेलवे पटरियों की दो लोहे की लाइनों के बीच की भीतरी <strong>स्थान/दूरी</strong> को 'गेज' कहा जाता है। इसके मुख्य प्रकार हैं:</p>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li style="margin-bottom: 10px;"><strong>बड़ी लाइन (Broad Gauge):</strong> इसमें पटरियों के बीच की दूरी 1.5 मीटर से अधिक (जैसे भारत में 1.676 मीटर) होती है।</li>
+                    <li style="margin-bottom: 10px;"><strong>मानक लाइन (Standard Gauge):</strong> पटरियों के बीच की दूरी 1.44 मीटर होती है। (UK और यूरोप में सबसे ज़्यादा यही इस्तेमाल होती है)।</li>
+                    <li style="margin-bottom: 10px;"><strong>मीटर लाइन (Metre Gauge):</strong> दोनों पटरियों के बीच की दूरी ठीक 1.0 मीटर होती है।</li>
+                    <li><strong>छोटी लाइन (Narrow Gauge):</strong> दोनों पटरियों के बीच की दूरी 1.0 मीटर से कम (पहाड़ी क्षेत्रों में प्रयुक्त) होती है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 9 -->
+        <div class="qa-card" id="q9">
+            <div class="badge-container">
+                <div class="badge">Q9</div>
+            </div>
+            <h2>फ्रांस और इंग्लैंड को जोड़ने वाली 'चैनल टनल' (Channel Tunnel) का क्या महत्व है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> 'चैनल टनल' एक प्रसिद्ध इंजीनियरिंग चमत्कार है। यह यूरोप महाद्वीप के नीचे समुद्र (इंग्लिश चैनल) से होकर गुज़रने वाली एक 'सुरंग' है, जिसे 'यूरो टनल' (Euro Tunnel) भी कहा जाता है।</p>
+                <p style="margin-top: 10px;"><strong>महत्व:</strong> यह सुरंग इंग्लैंड के लंदन को फ्रांस के पेरिस शहर से <strong>रेल मार्ग (यूरोस्टार ट्रेन)</strong> द्वारा सीधे जोड़ती है, जिससे समुद्री जहाज़ बदलने की आवश्यकता समाप्त हो गई है और यात्रा का समय बहुत कम हो गया है।</p>
+            </div>
+        </div>
+
+        <!-- QUESTION 10 -->
+        <div class="qa-card" id="q10">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>ट्रांस-साइबेरियन (पार-साइबेरियन) रेलमार्ग का वर्णन करें और रूस के लिए इसके महत्व को स्पष्ट करें।</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> यह विश्व का <strong>सबसे लंबा पार-महाद्वीपीय रेलमार्ग (लगभग 9,332 किमी)</strong> है। यह पश्चिमी रूस (बाल्टिक सागर तट) में <strong>'सेंट पीटर्सबर्ग'</strong> को पूर्वी रूस (प्रशांत महासागर तट) में <strong>'व्लादिवोस्तोक'</strong> से जोड़ता है। यह मास्को और कज़ान जैसे प्रमुख शहरों से होकर गुज़रता है।</p>
+                <div style="background: #fdfaf0; padding: 25px; border-radius: 20px; border-left: 8px solid #d97706; margin-top: 15px;">
+                    <strong>रूस के लिए महत्व:</strong> 
+                    यह रेलमार्ग रूस की <strong>'जीवन रेखा' (Lifeline)</strong> है। यह एशियाई रूस (पूर्वी भाग) को यूरोपीय रूस (पश्चिमी भाग) से जोड़ता है, जिससे साइबेरिया के खनिज, लकड़ी और कृषि उत्पादों का यूरोपीय बाज़ारों और बाल्टिक बंदरगाहों तक निर्यात संभव हो पाता है।
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 HEADER -->
+        <div style="background: #ffffff; border-left: 15px solid #2563eb; padding: 35px 50px; border-radius: 25px; margin-top: 80px; margin-bottom: 60px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <h2 style="font-family: 'Outfit', sans-serif; color: #1e3a8a; font-size: 3rem; margin: 0; font-weight: 800;">खण्ड 2: जल परिवहन और महासागरीय मार्ग (प्रश्न 11-20)</h2>
+            <p style="font-size: 1.8rem; color: #4b5563; margin-top: 10px; font-weight: 500;">आंतरिक जलमार्ग, प्रमुख समुद्री व्यापारिक रास्ते और मानव निर्मित नहरें (स्वेज एवं पनामा)।</p>
+        </div>
+
+        <!-- QUESTION 11 -->
+        <div class="qa-card" id="q11">
+            <div class="badge-container">
+                <div class="badge">Q11</div>
+            </div>
+            <h2>जल परिवहन (Water Transport) के क्या लाभ हैं?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong></p>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li style="margin-bottom: 10px;">इसमें मार्गों (सड़कों या पटरियों) के <strong>निर्माण और रखरखाव की कोई आवश्यकता नहीं</strong> होती (नहरों को छोड़कर)। महासागर एक दूसरे से जुड़े हुए हैं।</li>
+                    <li style="margin-bottom: 10px;">जल का घर्षण (Friction) कम होने के कारण यह बहुत <strong>ऊर्जा कुशल (Energy efficient)</strong> है।</li>
+                    <li>यह भारी और स्थूल (Bulky) माल को बहुत लंबी दूरी तक ले जाने के लिए <strong>सबसे सस्ता साधन</strong> है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 12 -->
+        <div class="qa-card" id="q12">
+            <div class="badge-container">
+                <div class="badge">Q12</div>
+            </div>
+            <h2>आंतरिक जलमार्ग (Inland Waterways) किन कारकों पर निर्भर करते हैं?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> आंतरिक जलमार्ग नदियों, नहरों और झीलों से होकर गुज़रते हैं। इनकी उपयोगिता निम्नलिखित बातों पर निर्भर करती है:</p>
+                <ol style="padding-left: 20px; list-style-type: decimal; margin-top: 10px;">
+                    <li style="margin-bottom: 10px;"><strong>नहर/नदी की गहराई और चौड़ाई:</strong> जहाँ पानी गहरा होता है, वहीं बड़े जहाज़ चल सकते हैं।</li>
+                    <li style="margin-bottom: 10px;"><strong>जल का निरंतर प्रवाह:</strong> नदी में पूरे वर्ष पानी रहना चाहिए (यह सूखनी या सर्दियों में जमनी नहीं चाहिए)।</li>
+                    <li><strong>मार्ग में बाधाएँ:</strong> जलप्रपात (Waterfalls) वाले क्षेत्रों में जहाज़ नहीं चल सकते।</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- QUESTION 13 -->
+        <div class="qa-card" id="q13">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>यूरोप के 'राइन जलमार्ग' (Rhine Waterway) का क्या आर्थिक महत्व है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> यह दुनिया का <strong>सबसे व्यवस्त आंतरिक जलमार्ग</strong> है।</p>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li>यह मुख्य रूप से जर्मनी और नीदरलैंड से होकर बहता है और उत्तरी सागर में 'रॉटरडैम' बंदरगाह पर समाप्त होता है।</li>
+                    <li>यह यूरोप के <strong>'रुहर' (Ruhr) कोयला क्षेत्र</strong> जैसे सबसे अधिक औद्योगिक क्षेत्रों से होकर गुज़रता है, जिससे यूरोप का भारी व्यापार (कोयला, लोहा, मशीनरी का परिवहन) सीधा समुद्र तक पहुँच जाता है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 14 -->
+        <div class="qa-card" id="q14">
+            <div class="badge-container">
+                <div class="badge">Q14</div>
+            </div>
+            <h2>उत्तरी अमेरिका के 'ग्रेट लेक्स - सेंट लॉरेंस' जलमार्ग के बारे में बताएँ।</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> उत्तरी अमेरिका की पाँच महान झीलें (Great Lakes - सुपीरियर, ह्यूरोन, मिशिगन, इरी और ओंटारियो) सू नहर (Soo Canal) और वेलैंड नहर द्वारा आपस में जुड़ी हुई हैं।</p>
+                <div style="background: #eff6ff; padding: 25px; border-radius: 20px; border-left: 8px solid #3b82f6; margin-top: 15px;">
+                    जब ये झीलें 'सेंट लॉरेंस' नदी से मिलती हैं, तो महासागर तक जाने का एक विशाल जलमार्ग बन जाता है। इस मार्ग ने अमेरिका के भीतरी औद्योगिक शहरों (जैसे शिकागो, डेट्रायट) को अटलांटिक महासागर के बंदरगाहों में बदल दिया है।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 15 -->
+        <div class="qa-card" id="q15">
+            <div class="badge-container">
+                <div class="badge">Q15</div>
+            </div>
+            <h2>महासागरीय मार्गों (Ocean Routes) की प्रमुख विशेषताएँ क्या हैं?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;">महासागर सभी दिशाओं में खुलने वाले विशाल राजमार्ग हैं, इसलिए किसी को भी इन पर <strong>अधिकार</strong> जमाने की ज़रूरत नहीं होती।</li>
+                    <li style="margin-bottom: 15px;">यह एक <strong>प्राकृतिक मार्ग</strong> है, जिसके रख-रखाव पर कोई खर्च नहीं होता।</li>
+                    <li>आधुनिक जहाज़ रडार, वायरलेस और नेविगेशन सुविधाओं से लैस होते हैं जो महासागरों में सुरक्षित और निर्बाध व्यापार को सक्षम बनाते हैं।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 16 -->
+        <div class="qa-card" id="q16">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>'उत्तर अटलांटिक समुद्री मार्ग' (North Atlantic Route) को विश्व का सबसे व्यस्त व्यापारिक मार्ग क्यों माना जाता है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> इस मार्ग को 'बड़ी लाइन' (Big Trunk Route) भी कहा जाता है। यह विश्व का सबसे महत्वपूर्ण और व्यस्त मार्ग है क्योंकि:</p>
+                <ol style="padding-left: 20px; margin-top: 10px;">
+                    <li style="margin-bottom: 10px;">यह विश्व के दो सबसे <strong>विकसित औद्योगिक क्षेत्रों</strong> — उत्तर-पूर्वी अमेरिका और पश्चिमी यूरोप — को आपस में जोड़ता है।</li>
+                    <li>दुनिया का एक-चौथाई विदेशी व्यापार इसी मार्ग से होता है।</li>
+                    <li>इस मार्ग के दोनों सिरों पर उन्नत औद्योगिक बंदरगाह (जैसे न्यूयॉर्क और लंदन) मौजूद हैं।</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- QUESTION 17 -->
+        <div class="qa-card" id="q17">
+            <div class="badge-container">
+                <div class="badge">Q17</div>
+            </div>
+            <h2>उत्तमाशा अंतरीप मार्ग (Cape of Good Hope Route) का महत्व स्वेज नहर के बनने से पहले क्या था?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> स्वेज नहर के निर्माण (1869) से पहले, यूरोप के जहाज़ों को एशिया (भारत) तक पहुँचने के लिए पूरे 'अफ्रीका महाद्वीप' के दक्षिणी सिरे (Cape of Good Hope) का चक्कर लगाना पड़ता था।</p>
+                <div style="background: #fdfaf0; padding: 25px; border-radius: 20px; border-left: 8px solid #d97706; margin-top: 15px;">
+                    उस समय यह यूरोप को पश्चिम अफ्रीका, दक्षिण अफ्रीका, दक्षिण पूर्व एशिया और ऑस्ट्रेलिया से जोड़ने वाला एकमात्र और सबसे महत्वपूर्ण <strong>लंबा समुद्री मार्ग</strong> था।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 18 -->
+        <div class="qa-card" id="q18">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>स्वेज नहर (Suez Canal) का संक्षिप्त वर्णन करें और इसके निर्माण से भारत को क्या लाभ हुआ?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> मिस्र में निर्मित स्वेज नहर (1869) एक कृत्रिम जलमार्ग है जो <strong>भूमध्य सागर (पोर्ट सईद)</strong> को <strong>लाल सागर (पोर्ट स्वेज)</strong> से जोड़ती है। यह 160 किमी लंबी और लगभग 11-15 मीटर गहरी है।</p>
+                <ul style="padding-left: 20px; margin-top: 15px;">
+                    <li><strong style="color: #92400e;">भारत को लाभ:</strong> इसके बनने से यूरोप (लंदन) और एशिया (मुंबई/कोलंबो) के बीच की दूरी बहुत कम हो गई (लगभग 6400 किमी)। अब जहाज़ों को पूरे अफ्रीका का चक्कर नहीं लगाना पड़ता। इसने भारत के यूरोपीय व्यापार को गति और भारी आर्थिक लाभ दिया।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 19 -->
+        <div class="qa-card" id="q19">
+            <div class="badge-container">
+                <div class="badge">Q19</div>
+            </div>
+            <h2>पनामा नहर (Panama Canal) किन दो जलराशियों को जोड़ती है? इसकी 'लॉक प्रणाली' (Lock System) क्या है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> 1914 में अमेरिका द्वारा निर्मित पनामा नहर <strong>अटलांटिक महासागर (कैरेबियन सागर)</strong> को प्रशांत महासागर से जोड़ती है।</p>
+                <div style="background: #fdf2f8; padding: 25px; border-radius: 20px; border-left: 8px solid #ec4899; margin-top: 15px;">
+                    <strong style="color: #9d174d; display: block; margin-bottom: 10px;">लॉक प्रणाली (Locks):</strong>
+                    पनामा में पहाड़ी इलाका है। इसलिए नहर में पानी के दरवाज़े (Locks - गाटून, पेड्रो और मिराफ्लॉरेस) बनाए गए हैं। जहाज़ लॉक में प्रवेश करता है, पानी भरकर जहाज़ को ऊपर उठाया जाता है, वह आगे बढ़ता है, और अंत में पानी निकालकर उसे वापस नीचे समुद्र स्तर पर लाकर प्रशांत महासागर में उतार दिया जाता है।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 20 -->
+        <div class="qa-card" id="q20">
+            <div class="badge-container">
+                <div class="badge">Q20</div>
+            </div>
+            <h2>स्वेज नहर और पनामा नहर के बीच किन्हीं दो मुख्य अंतरों को स्पष्ट करें।</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px; list-style-type: square;">
+                    <li style="margin-bottom: 15px;"><strong>लॉक सिस्टम:</strong> पनामा नहर में जहाज़ों को ऊपर-नीचे करने के लिए 'लॉक सिस्टम' की आवश्यकता होती है। जबकि स्वेज नहर बिना लॉक (Sea-level) के बनी है।</li>
+                    <li><strong>मार्ग प्रभाव:</strong> स्वेज नहर ने एशिया और यूरोप को पास ला दिया, जबकि पनामा नहर ने उत्तरी अमेरिका के 'पूर्वी तट' (न्यूयॉर्क) और 'पश्चिमी तट' (सैन फ्रांसिस्को) के बीच की समुद्री दूरी (13,000 किमी) कम कर दी।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 3 HEADER -->
+        <div style="background: #ffffff; border-left: 15px solid #ec4899; padding: 35px 50px; border-radius: 25px; margin-top: 80px; margin-bottom: 60px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <h2 style="font-family: 'Outfit', sans-serif; color: #9d174d; font-size: 3rem; margin: 0; font-weight: 800;">खण्ड 3: वायु, पाइपलाइन, संचार और पत्तन (प्रश्न 21-30)</h2>
+            <p style="font-size: 1.8rem; color: #4b5563; margin-top: 10px; font-weight: 500;">आधुनिक परिवहन साधन, साइबर स्पेस और अंतरराष्ट्रीय व्यापार के प्रवेश द्वार।</p>
+        </div>
+
+        <!-- QUESTION 21 -->
+        <div class="qa-card" id="q21">
+            <div class="badge-container">
+                <div class="badge">Q21</div>
+            </div>
+            <h2>वायु परिवहन (Air Transport) के दो प्रमुख लाभ और दो सीमाएँ (Limitations) बताएँ।</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px; list-style-type: square;">
+                    <li style="margin-bottom: 10px;"><strong>लाभ:</strong> 1. यह सबसे तीव्र (Fastest) साधन है जिससे समय की भारी बचत होती है। 2. यह दुर्गम पहाड़ी और बर्फीले क्षेत्रों में राहत सामग्री पहुँचाने का एकमात्र साधन है।</li>
+                    <li><strong>सीमाएँ:</strong> 1. यह बहुत अधिक मँहगा है, इसलिए आम व्यक्ति की पहुँच से बाहर है। 2. भारी और स्थूल माल (जैसे कोयला) ले जाने के लिए यह अनुपयुक्त है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 22 -->
+        <div class="qa-card" id="q22">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>पाइपलाइन परिवहन (Pipeline Transport) का क्या महत्व है? यह किस प्रकार के पदार्थों के लिए उपयोगी है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> पाइपलाइन परिवहन तरल और गैसीय पदार्थों को बिना किसी बाधा के लगातार ले जाने का साधन है।</p>
+                <div style="background: #fffbeb; padding: 25px; border-radius: 20px; border-left: 8px solid #f59e0b; margin-top: 15px;">
+                    <strong style="color: #d97706; display: block; margin-bottom: 10px;">महत्व/उपयोग:</strong>
+                    यह जल, कच्चा पेट्रोलियम (Crude Oil) और प्राकृतिक गैस (CNG/PNG) के लिए सर्वाधिक उपयोगी है। एक बार बिछने के बाद इसका संचालन खर्च (Running cost) लगभग शून्य होता है। न्यूज़ीलैंड में पाइपलाइनों से 'दूध' भी पहुँचाया जाता है।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 23 -->
+        <div class="qa-card" id="q23">
+            <div class="badge-container">
+                <div class="badge">Q23</div>
+            </div>
+            <h2>'संचार' (Communication) के क्षेत्र में ऑप्टिक फाइबर (Optic Fiber) ने क्या क्रांति ला दी है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> संदेशों और सूचनाओं के आदान-प्रदान को संचार कहते हैं। पहले इसके लिए तांबे के तारों का इस्तेमाल होता था।</p>
+                <p style="margin-top: 10px;"><strong>ऑप्टिक फाइबर का प्रभाव:</strong> इसने डेटा को <strong>'प्रकाश की गति' (Speed of light)</strong> से ले जाना संभव बनाया है। इसके कारण विशाल मात्रा का डेटा (High-speed internet/video) बहुत तेज़ी से और सुरक्षित रूप से दुनिया भर में भेजा जा सकता है।</p>
+            </div>
+        </div>
+
+        <!-- QUESTION 24 -->
+        <div class="qa-card" id="q24">
+            <div class="badge-container">
+                <div class="badge">Q24</div>
+            </div>
+            <h2>उपग्रह संचार (Satellite Communication) क्या है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> अंतरिक्ष में भेजे गए कृत्रिम उपग्रहों (Artificial Satellites) के माध्यम से पृथ्वी के किसी भी भाग में संपर्क स्थापित करना उपग्रह संचार कहलाता है।</p>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li>इससे लाइव टेलीविज़न, मौसम की भविष्यवाणी और 'जीपीएस' (GPS System) नेविगेशन संभव हो पाया है।</li>
+                    <li>भारत की <strong>'इनसैट' (INSAT)</strong> प्रणाली इसी का शानदार उदाहरण है।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 25 -->
+        <div class="qa-card" id="q25">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>'साइबर स्पेस - इंटरनेट' (Cyberspace) से क्या तात्पर्य है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> साइबर स्पेस एक <strong>डिजिटल और आभासी (Virtual) दुनिया</strong> है, जिसे कंप्यूटर और इंटरनेट नेटवर्क द्वारा बनाया गया है।</p>
+                <div style="background: #eff6ff; padding: 25px; border-radius: 20px; border-left: 8px solid #3b82f6; margin-top: 15px;">
+                    यह सूचनाओं और डेटा का एक ऐसा 'वैश्विक महासागर' (WWW) है जहाँ दुनिया का कोई भी व्यक्ति ईमेल, ई-कॉमर्स और शिक्षा के लिए कभी भी जुड़ सकता है। इसका कोई 'भौतिक ऑफिस' या सीमा नहीं है।
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION 26 -->
+        <div class="qa-card" id="q26">
+            <div style="background: #ef4444; color: white; padding: 10px 30px; border-radius: 100px; font-weight: 800; font-size: 1.3rem; align-self: flex-end; margin-bottom: -15px;">💡 बोर्ड हेतु महत्वपूर्ण</div>
+            <h2>पत्तनों (Ports) को अंतरराष्ट्रीय व्यापार का 'प्रवेश द्वार' (Gateways) क्यों कहा जाता है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong> दुनिया का अधिकांश भारी अंतरराष्ट्रीय व्यापार 'समुद्री मार्गों' से होता है।</p>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li>पत्तन समुद्री और स्थलीय मार्गों का <strong>मिलन बिंदु</strong> होते हैं।</li>
+                    <li>विदेशों से आने वाला माल यहीं उतरता है और देश से जाने वाला माल यहीं से जहाज़ों में लादा जाता है। सारी लोडिंग, अनलोडिंग और भंडारण (Storage) यहीं होती है, इसलिए इन्हें व्यापार के 'प्रवेश द्वार' कहते हैं।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 27 -->
+        <div class="qa-card" id="q27">
+            <div class="badge-container">
+                <div class="badge">Q27</div>
+            </div>
+            <h2>अंतर्देशीय पत्तन (Inland Ports) और बाह्य पत्तन (Out Ports) में क्या अंतर है?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px; list-style-type: decimal;">
+                    <li style="margin-bottom: 20px;">
+                        <strong style="color: #10b981;">अंतर्देशीय पत्तन:</strong> ये समुद्र तट से दूर 'नदियों' या नहरों के किनारे स्थित होते हैं और समुद्र से जुड़े होते हैं। (जैसे कोलकाता पत्तन हुगली नदी पर है)।
+                    </li>
+                    <li>
+                        <strong style="color: #10b981;">बाह्य पत्तन:</strong> ये मुख्य बंदरगाह से काफी दूर 'गहरे महासागर' (Deep sea) में बनाए जाते हैं। इनका निर्माण इसलिए किया जाता है ताकि उन 'विशाल जहाज़ों' को खड़ा किया जा सके जो अधिक गहराई के कारण मुख्य पत्तन तक नहीं आ सकते।
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 28 -->
+        <div class="qa-card" id="q28">
+            <div class="badge-container">
+                <div class="badge">Q28</div>
+            </div>
+            <h2>'आंत्रपो पत्तन' (Entrepot Ports) और 'मार्ग पत्तन' (Ports of Call) किस लिए इस्तेमाल होते हैं?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong>आंत्रपो पत्तन:</strong> इनका उपयोग विभिन्न देशों से माल को 'एकत्र' (Collect) करने और फिर उसी माल को अन्य देशों में 'निर्यात' (Export) करने के लिए किया जाता है (जैसे सिंगापुर और कोपेनहेगन)।</li>
+                    <li><strong>मार्ग पत्तन (विश्राम पत्तन):</strong> लंबी समुद्री यात्राओं के दौरान ये पत्तन जहाज़ों में 'ईंधन' (Fuel) भरने, भोजन-पानी लेने और नाविकों के आराम के लिए इस्तेमाल होते हैं (जैसे अदन (Aden) और होनोलूलू)।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 29 -->
+        <div class="qa-card" id="q29">
+            <div class="badge-container">
+                <div class="badge">Q29</div>
+            </div>
+            <h2>नौसेना पत्तन (Naval Ports) और 'पैकेट स्टेशन' (Packet Stations) किसे कहते हैं?</h2>
+            <div class="answer-block">
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 15px;"><strong style="color: #ec4899;">नौसेना पत्तन:</strong> ये विशेष रूप से सेना (Navy) के युद्धपोतों की मरम्मत और रख-रखाव के लिए बने होते हैं। व्यापारिक जहाज़ यहाँ नहीं आते। (जैसे भारत में कोच्चि या कारवाड़)।</li>
+                    <li><strong style="color: #ec4899;">पैकेट स्टेशन (फेरी पत्तन):</strong> छोटी समुद्री दूरियों को पार करने के लिए होते हैं। इनका मुख्य काम यात्रियों (Passengers) और डाक (Mail) को जल्दी से आर-पार ले जाना है (जैसे इंग्लैंड में डोवर)।</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUESTION 30 -->
+        <div class="qa-card" id="q30">
+            <div class="badge-container">
+                <div class="badge">Q30</div>
+            </div>
+            <h2>परिवहन और संचार के साधनों का आधुनिकीकरण (Modernization) दुनिया को 'ग्लोबल विलेज' किस प्रकार बना रहा है?</h2>
+            <div class="answer-block">
+                <p><strong style="color: #065f46; font-size: 2.2rem;">उत्तर:</strong></p>
+                <div style="background: #fdfaf0; padding: 25px; border-radius: 20px; border-left: 8px solid #d97706; margin-top: 15px;">
+                    हाई-स्पीड महामार्गों, हवाई जहाज़ों, और विशेषकर <strong>इंटरनेट (साइबर स्पेस)</strong> ने 'भौगोलिक दूरियों' को समाप्त कर दिया है। दुनिया के किसी भी कोने में बैठा व्यक्ति इंटरनेट के ज़रिए ज्ञान और व्यापार साझा कर सकता है। इस तीव्र कनेक्टिविटी ने पूरी पृथ्वी को समेटकर एक 'वैश्विक ग्राम' (Global Village) का रूप दे दिया है।
+                </div>
+            </div>
+        </div>
+
+        <!-- GOLD MASTER BADGE -->
+        <div style="text-align: center; margin-top: 120px; margin-bottom: 60px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 60px; border-radius: 50px; box-shadow: 0 25px 50px -12px rgba(5, 150, 105, 0.4); color: white; position: relative; overflow: hidden; border: 4px solid #fbbf24;">
+            <div style="font-size: 8rem; margin-bottom: 20px; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));">🏆</div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 4.5rem; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: 2px;">अध्याय 8 पूर्ण (Gold Master)</h2>
+            <p style="font-size: 2.8rem; font-weight: 800; margin-top: 10px; opacity: 0.9;">Transport and Communication</p>
+            <div style="margin-top: 40px; background: rgba(255, 255, 255, 0.2); display: inline-block; padding: 15px 40px; border-radius: 100px; font-weight: 800; font-size: 1.8rem; backdrop-filter: blur(5px); color: #fbbf24;">
+                20 MCQs + 30 Subjective Questions Verified
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

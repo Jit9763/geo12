@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography Q&A Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body { background: #f8fafc; color: #1e293b; padding: 0; min-height: auto; }
+        .floating-sidebar {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 2000;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .floating-sidebar.hidden {
+            transform: translateY(-50%) translateX(100px);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .action-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(6, 78, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        .action-btn:hover {
+            background: #10b981;
+            transform: scale(1.15);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+        }
+        .action-btn svg { width: 28px; height: 28px; fill: currentColor; }
+        .content-container {
+            max-width: 1200px;
+            margin: 40px auto 100px;
+            background: white;
+            padding: 60px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            min-height: 100vh;
+        }
+        .copy-success {
+            position: fixed;
+            top: 85px; right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+            z-index: 1001;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        #chapterTitleDisplay { color: #ecfdf5; font-weight: 800; font-size: 1.2rem; }
+
+        /* UNIVERSAL PRINT OPTIMIZATION (Fix for All Chapters) */
+        @media print {
+            body { background: white !important; padding: 0 !important; }
+            .content-container { 
+                max-width: 100% !important; margin: 0 !important; 
+                box-shadow: none !important; border-radius: 0 !important; 
+                padding: 20px !important;
+            }
+            .floating-sidebar, .copy-success { display: none !important; }
+            
+            /* Subjective Card Print Formatting */
+            .qa-card, .qa-card-mcq { 
+                break-inside: avoid; border: 1px solid #eee !important;
+                box-shadow: none !important; background: white !important;
+                margin-bottom: 20px !important; padding: 20px !important;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+            .qa-card-mcq { background: #f8fafc !important; }
+            .mcq-option { border: 1px solid #ddd !important; }
+            .mcq-correct { 
+                background: #ecfdf5 !important; color: #065f46 !important; 
+                border: 1px solid #10b981 !important; 
+            }
+            .qa-card ul { 
+                background: #f0fdfa !important; border-left: 10px solid #059669 !important; 
+                padding: 20px 40px !important;
+            }
+            header { 
+                background: #064e3b !important; color: white !important; 
+                border-radius: 20px !important; padding: 40px !important;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+            .badge-container { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-sidebar" id="floatingSidebar">
+        <!-- Home Button -->
+        <div class="action-btn" title="Home" onclick="location.href='index.html'">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </div>
+        <!-- Copy Button -->
+        <div class="action-btn" title="Copy for Google Docs" id="copyBtn">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+        </div>
+        <!-- Print Button -->
+        <div class="action-btn" title="Print to PDF" onclick="window.print()">
+            <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+        </div>
+    </div>
+
+    <div class="copy-success" id="copySuccess">✓ Copied Successfully!</div>
+
+    <div class="content-container" id="mainContent">
+        <!-- Content will be loaded here -->
+        <p style="text-align:center; padding: 50px; color: #64748b;">Preparing Q&A Bank...</p>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const chapterId = urlParams.get('id');
+
+        const chapters = {
+            1: "मानव भूगोल: प्रकृति एवं विषय-क्षेत्र",
+            2: "विश्व जनसंख्या: वितरण, घनत्व और वृद्धि",
+            3: "जनसंख्या संघटन",
+            4: "मानव विकास",
+            5: "प्राथमिक क्रियाएँ",
+            6: "द्वितीयक क्रियाएँ",
+            7: "तृतीयक और चतुर्थ क्रियाकलाप",
+            8: "परिवहन एवं संचार",
+            9: "अंतर्राष्ट्रीय व्यापार",
+            10: "मानव बस्ती",
+            11: "जनसंख्या: वितरण, घनत्व, वृद्धि एवं संगठन",
+            12: "मानव बस्तियाँ",
+            13: "भू-संसाधन तथा कृषि",
+            14: "जल संसाधन",
+            15: "खनिज तथा ऊर्जा संसाधन",
+            16: "भारत के संदर्भ में नियोजन और सततपोषणीय विकास",
+            17: "परिवहन तथा संचार",
+            18: "अंतर्राष्ट्रीय व्यापार",
+            19: "भौगोलिक परिप्रेक्ष्य में चयनित कुछ मुद्दे एवं समस्याएँ"
+        };
+
+        if (chapterId && chapters[chapterId]) {
+            document.title = chapters[chapterId] + " - Q&A Bank";
+            // Chapter title element was removed in UI overhaul
+            
+            // Load the actual content file
+            fetch(`qa_master_ch${chapterId}.html`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Q&A content not found');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('mainContent').innerHTML = html;
+                })
+                .catch(err => {
+                    document.getElementById('mainContent').innerHTML = `<h2 style="color: #ef4444; text-align: center;">Coming Soon...</h2><p style="text-align: center;">This chapter's mega question bank is being prepared.</p>`;
+                });
+        }
+
+        // Handle Scroll to Hide Sidebar
+        let lastScrollTop = 0;
+        const sidebar = document.getElementById('floatingSidebar');
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                sidebar.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const content = document.getElementById('mainContent').innerHTML;
+            const blob = new Blob([content], { type: 'text/html' });
+            const item = new ClipboardItem({ 'text/html': blob });
+            
+            navigator.clipboard.write([item]).then(() => {
+                const successMsg = document.getElementById('copySuccess');
+                successMsg.style.display = 'block';
+                successMsg.style.top = '20px'; // Adjust for missing header
+                setTimeout(() => { successMsg.style.display = 'none'; }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
